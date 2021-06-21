@@ -1,5 +1,14 @@
 ---
 published: true
+layout: post
+title: Binary Classification with MC-Dropout Models
+img: https://api.wandb.ai/files/sborquez/images/projects/131709/a91e89f8.png
+tags:
+  - Uncertainty
+  - Bayesian Deep Learning
+  - Deep Learning
+  - Machine Learning
+  - Artificial Inteligence
 ---
 ## Binary Classification with MC-Dropout Models
 
