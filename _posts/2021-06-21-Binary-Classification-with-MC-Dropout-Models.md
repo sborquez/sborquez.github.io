@@ -2,7 +2,7 @@
 published: true
 layout: post
 title: Binary Classification with MC-Dropout Models
-img: cat_vs_dogs.jpg.png
+img: cat_vs_dogs.jpg
 tags:
   - Uncertainty
   - Bayesian Deep Learning
