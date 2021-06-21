@@ -17,7 +17,7 @@ Bayesian Deep Learning (BDL)[1] allows to include the uncertainty measurement fo
 The proposed submodels [implementation](https://github.com/sborquez/her2bdl/tree/dev) of the Monte-Carlo dropout [2], allows us to use any pre-trained model as the encoder model _E_, for this dataset, it is convenient to use a well-known model for image classification. In particular, we use the Keras implementation of the **EfficientNet**, with the configuration **B0** and the weights trained with the **ImageNet dataset** (https://image-net.org/).
 For the stochastic classifier model _C_, we implement it by stacking three fully dense connection layers. As the MC-Dropout model requires, a dropout layer is added between each dense layer to enforce the stochastic output.  The following figure shows the architecture of the model used for this binary classification problem.
 
-![nn-EfficientNet.png]({{site.baseurl}}/_drafts/nn-EfficientNet.png)
+![nn-EfficientNet.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/nn-EfficientNet.png)
 
 In the rest of this post, we will discuss the training procedure, the classification performance and analyze and interpretation of the uncertainty.
 
