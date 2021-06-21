@@ -30,19 +30,19 @@ The model is trained with the RMSProp algorithm, with a learning rate of 0.001, 
 
 In general, the performance metrics show that this model can perfectly classify images of cats and dogs.
 
-![binary_training.png]({{site.baseurl}}/_drafts/binary_training.png)
-![clasify.png]({{site.baseurl}}/_drafts/clasify.png)
+![binary_training.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/binary_training.png)
+![clasify.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/clasify.png)
 
 ### Prediction Examples
 
 An MC-Dropout model performs the prediction of the class for a new input differently from a classic model of DL. The predictive distribution, i.e., the estimated distribution of classes for a given input, is calculated by sampling the trained model with _T_ stochastic forward passes and average the results. 
 
-![predictive.png]({{site.baseurl}}/_drafts/predictive.png)
+![predictive.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/predictive.png)
 
 We implement this estimation with the proposed **2-step predictive distribution** algorithm with GPU accelerated Monte-Carlo forward passes. The following figures consist of the input image with the true and predicted classes (top left), the predictive distribution and epistemic uncertainty (top right), and a stochastic forward passes distribution by class.
 
 
-![High mutual information_0_18.png]({{site.baseurl}}/_drafts/High mutual information_0_18.png)
+![High mutual information_0_18.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/High mutual information_0_18.png)
 
 
 ### Epistemic Uncertainty
@@ -51,14 +51,14 @@ The previous section has shown that the model can classify the images, but we ar
 
 We measure the epistemic uncertainty with the **Predictive Entropy** (H) or the **Mutual Inforation** (I):
 
-![epistemic.png]({{site.baseurl}}/_drafts/epistemic.png)
+![epistemic.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/epistemic.png)
 
 Predictive entropy _H_ capture the uncertainty in the prediction, whereas the mutual information _I_ captures the model’s confidence in its output.
 
 We evaluate the best model obtained in the training phase on the test set.  The next figure shows samples from the evaluation set with higher predictive entropy and mutual information.
 
-![high_entropy.png]({{site.baseurl}}/_drafts/high_entropy.png)
-![high_mutual.png]({{site.baseurl}}/_drafts/high_mutual.png)
+![high_entropy.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/high_entropy.png)
+![high_mutual.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/high_mutual.png)
 
 The epistemic uncertainty results show that  the mean prdictive entropy and mutual information for the evaluation set are near 0, so broadly speaking, the model has a high level of confidence, without any class preference.  Nonetheless, some outliers have a large epistemic uncertainty; for those samples (see the previous figure), the model has a low confidence level in its prediction.
 
@@ -67,40 +67,40 @@ The epistemic uncertainty results show that  the mean prdictive entropy and mutu
 The other type of uncertainty is the **aleatoric uncertainty**, also known as **data uncertainty**. This is an irreducible type of uncertainty and is **the noise inherent in the observations**. Aleatoric uncertainty is categorized into homoscedastic uncertainty, the uncertainty that stays constant for different inputs, and heteroscedastic uncertainty that depends on the inputs to the model, and can vary with each new image, thus some input will have higher uncertainty than others. Heteroscedastic uncertainty is especially important for computer vision applications.
 By applying the method discussed in the paper [3], we can measure  for each input sample the aleatoric uncertainty, the **predictive variance**, building the **Aleatoric Model**. By moddifying the stochastic classifier from the MC-Dropout model, removing the MC-Dropout layers and adding the predictive variance ($\hat{\sigma}$) to the model's output. This method works by adding noise  from a normal distribution ϵ∼N(0,I) to the model output in previous to the softmax function, i.e. we corrupt the output in the logits space.
 
-![ale.png]({{site.baseurl}}/_drafts/ale.png)
+![ale.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/ale.png)
 
 The next figure shows the new aleatoric model architecture, we can reuse the same weights from the encoder.
 
-![nn-Aleatoric EfficientNet.png]({{site.baseurl}}/_drafts/nn-Aleatoric EfficientNet.png)
+![nn-Aleatoric EfficientNet.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/nn-Aleatoric EfficientNet.png)
 
 In order to training, the model uses the following loss function instead of the cross-entropy loss.
 
-![loss.png]({{site.baseurl}}/_drafts/loss.png)
+![loss.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/loss.png)
 
 Notices that for this model _w_ is fixed, so the model's outputs are deterministic. Instead, we obtain stochastics output in the loss function evaluation.
 
 We train the aleatoric model and was evaluate in the test set.
 
-![binary_training_aleatoric.png]({{site.baseurl}}/_drafts/binary_training_aleatoric.png)
+![binary_training_aleatoric.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/binary_training_aleatoric.png)
 
 
 A higher value of predictive variance means a higher noise in a given input image. The next figure shows samples from the evaluation set with the lower and higher aleatoric uncertainty.  
 
-![Low predictive_variance_0_60.png]({{site.baseurl}}/_drafts/Low predictive_variance_0_60.png)
+![Low predictive_variance_0_60.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/Low predictive_variance_0_60.png)
 
-![High predictive_variance_0_6.png]({{site.baseurl}}/_drafts/High predictive_variance_0_6.png)
+![High predictive_variance_0_6.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/High predictive_variance_0_6.png)
 
 
 The aleatoric uncertainty results show a difference in the distribution of uncertainty for each class. The dog class tends to have a higher uncertainty than the cat class.
 
-![variance.png]({{site.baseurl}}/_drafts/variance.png)
+![variance.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/variance.png)
 
 
 ### The Importance of Uncertainty
 
 he next figure shows some relevant examples from the evaluation set with the higher **predictive entropy**.
 
-![collage_high_predictive_entropy.png]({{site.baseurl}}/_drafts/collage_high_predictive_entropy.png)
+![collage_high_predictive_entropy.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/collage_high_predictive_entropy.png)
 
 The model has low confidence with these examples, and we can infer that three types of conditions may cause this. The first row shows that an image with a small pixel region containing factual information is a source of uncertainty. As humans, we also have some difficulty distinguishing these types of pictures due to the image's low resolution.
 
@@ -108,7 +108,7 @@ The second row contains images out of the distribution of the training set. Pict
 
 Finally, the third row contains images of cats and dogs in a weird-looking pose, like the first picture, with a dog looking at the camera that actually is the top of a cat's head. Or cat and dog with mixed features, like a pointy ear dog and a pitbull fur cat.
 
-![collage_predictive_variace.png]({{site.baseurl}}/_drafts/collage_predictive_variace.png)
+![collage_predictive_variace.png](https://raw.githubusercontent.com/sborquez/sborquez.github.io/master/_drafts/collage_predictive_variace.png)
 
 In the case of the predictive variance, samples with a large black region also present an high uncertainty. The difference between clases can be explained by the variability of the features of dogs in contrast to the low variability of the cat features. The differences between dogs' breeds, shapes, sizes, and furs are visually different from those of cats. Thus, creating more noise datasets for the dog class.
 
